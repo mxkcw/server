@@ -1,0 +1,30 @@
+system:
+  domain: webSite
+  version: 1.0
+  env: "dev"
+  HttpPort: ":5001"
+  Host: "localhost"
+  UploadModel: "local"
+  Jwt: "dwfyaxxccc"
+
+
+mysql:
+  dbHost: "114.117.164.200"
+  dbPort: "3308"
+  dbName: "db_wynpay"
+  userName: "root"
+  password: "1234"
+  charset: "utf8mb4"
+
+
+redis:
+  redisDbName: 6
+  redisHost: "114.117.164.200"
+  redisPort: 6379
+  redisPassword: qwe1230.
+  redisNetwork: "tcp"
+
+rongcloud:
+  appkey: "sfci50a7sjlmi"
+  appsecret: "D9dS1g1U3BU9"
+  defaultPhoto: "formal/avatar.png"

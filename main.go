@@ -17,13 +17,13 @@ var (
 	pKGMode    = "webSite"
 )
 
-//	@title						Gin-Server Swagger API接口文档
-//	@version					v0.0.1
-//	@description				wynpay
-//	@securityDefinitions.apikey	ApiKeyAuth
-//	@in							header
-//	@name						x-token
-//	@BasePath					/
+// @title						Gin-Server Swagger API接口文档
+// @version					v0.0.1
+// @description				wynpay
+// @securityDefinitions.apikey	ApiKeyAuth
+// @in							header
+// @name						x-token
+// @BasePath					/
 func main() {
 	if runMode == "debug" {
 		config.CurrentRunMode = windIne.RunModeDebug
@@ -64,6 +64,7 @@ func main() {
 			WindIne_orm_mysql.Instance().MysqlDB.Debug().Omit("CreatedAt", "UpdatedAt", "DeletedAt")
 			windIne_log.LogInfof("%s", "开启全局路由模式")
 			initialize.Routers()
+
 		},
 	)
 

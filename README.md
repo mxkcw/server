@@ -1,0 +1,2 @@
+# server
+wynpay_server

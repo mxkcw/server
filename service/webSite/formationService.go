@@ -34,6 +34,7 @@ func (f *FormationService) Formation(source, medium, widgetID, campaign, pageTyp
 		UTMMedium:    medium,
 		UTMCampaign:  campaign,
 		URL:          url,
+		PageType:     pageType,
 		GMTCreate:    time.Now(),
 		GMTModified:  time.Now(),
 	}

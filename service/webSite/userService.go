@@ -110,6 +110,5 @@ func (u *UserService) GetGroupData(params request.GetData) (error, []request.Gro
 			return rs.Error, nil
 		}
 	}
-	fmt.Printf("rs:---%+v\n", result)
 	return nil, result
 }

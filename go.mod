@@ -6,7 +6,9 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.10.0
 	github.com/google/uuid v1.6.0
+	github.com/mileusna/useragent v1.3.4
 	github.com/mojocn/base64Captcha v1.3.6
+	github.com/mssola/user_agent v0.6.0
 	github.com/mxkcw/windIneLog v0.0.10
 	github.com/shopspring/decimal v1.4.0
 	github.com/spf13/viper v1.19.0
@@ -15,6 +17,7 @@ require (
 	github.com/swaggo/swag v1.16.2
 	github.com/unrolled/secure v1.14.0
 	golang.org/x/crypto v0.23.0
+	gorm.io/gorm v1.25.10
 )
 
 require (
@@ -80,5 +83,4 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/driver/mysql v1.5.7 // indirect
-	gorm.io/gorm v1.25.10 // indirect
 )

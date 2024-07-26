@@ -19,7 +19,7 @@ func (f *FormationService) Formation(source, medium, widgetID, campaign, pageTyp
 	appKey := strings.ReplaceAll(uuidWithDashes.String(), "-", "")
 	//生成URL连接
 	var url string
-	if pageType == "pageType" {
+	if pageType == "individual" {
 		url = "https://www.wynpay.io/en/" + pageType + "?appKey=" + appKey + "&utm_source=" + source + "&utm_medium=" + medium + "&utm_campaign=" + campaign + "&currency_code=" + widgetID
 	} else {
 		url = "https://www.wynpay.io/en?appKey=" + appKey + "&utm_source=" + source + "&utm_medium=" + medium + "&utm_campaign=" + campaign + "&currency_code=" + widgetID

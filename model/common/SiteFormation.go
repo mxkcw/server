@@ -12,6 +12,7 @@ type SiteFormation struct {
 	URL          string    `json:"url" gorm:"type:varchar(255);comment:'url'"`
 	GMTCreate    time.Time `json:"gmt_create" gorm:"type:datetime;comment:'gmt_create'"`
 	GMTModified  time.Time `json:"gmt_modified" gorm:"type:datetime;comment:'gmt_modified'"`
+	PageType     string    `json:"page_type" gorm:"type:varchar(255);comment:'page_type'"`
 }
 
 func (SiteFormation) TableName() string {

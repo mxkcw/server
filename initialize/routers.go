@@ -36,7 +36,6 @@ func Routers() {
 		groupRouterSite.InitFormationRouter(publicGroup)
 
 	}
-
 	//开启服务
 	webSiteRouter.Run(config.Config.System.HttpPort)
 }

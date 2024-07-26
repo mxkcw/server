@@ -1,8 +1,8 @@
 package webSite
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/mileusna/useragent"
 	"github.com/mxkcw/windIneLog/windIne_log"
 	"server/middleware"
 	"server/model/common/request"
@@ -66,7 +66,7 @@ func (u *UserApi) Info(c *gin.Context) {
 
 }
 
-// add visit record
+// AddRecord add visit record
 func (u *UserApi) AddRecord(c *gin.Context) {
 	windIne_log.LogInfof("%v", c)
 	var param request.AddVistRecord
@@ -76,15 +76,25 @@ func (u *UserApi) AddRecord(c *gin.Context) {
 		response.Fail(c, "", err.Error(), 500)
 		return
 	}
-	fmt.Println(param)
+	windIne_log.LogInfof("%s,%s,%s,%s,%s,%s", param.UtmSource, param.UtmMedium, param.ApiKey, param.DeviceType, param.Region, param.Referer)
 	err = utils.Verify(param, utils.RecordVerify)
 	if err != nil {
 		windIne_log.LogErrorf("%s", err.Error())
 		response.Fail(c, "", err.Error(), 500)
 		return
 	}
-	var state bool
-	err, state = userService.InsertRecord(param)
+	//获取ip
+	ip := c.ClientIP()
+	//获取设备信息
+	ua := useragent.Parse(c.Request.UserAgent()).OS
+	if ip == "::1" {
+		ip = "127.0.0.1"
+	}
+	param.DeviceType = utils.DeviceType(c.Request.Header.Get("User-Agent"))
+	// address todo
+	param.Region = ua
+	param.Referer = ip
+	err, state := userService.InsertRecord(param)
 	data := make(map[string]interface{})
 	data["state"] = state
 	response.Ok(c, data, "success")
@@ -99,7 +109,6 @@ func (u *UserApi) GroupData(c *gin.Context) {
 		response.Fail(c, "", err.Error(), 500)
 		return
 	}
-	fmt.Println(param)
 	err = utils.Verify(param, utils.RecordVerify)
 	if err != nil {
 		windIne_log.LogErrorf("%s", err.Error())

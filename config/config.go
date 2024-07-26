@@ -103,10 +103,11 @@ type FileUpload struct {
 func InitConfig(configName, configPath string) {
 	windIne_log.LogInfof("------------------%s", configPath)
 	workDir, _ := os.Getwd()
+	windIne_log.LogInfof("------workDir------------%s", workDir)
 	viper.SetConfigName(configName)
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath(filepath.Join(workDir, configPath))
-	windIne_log.LogInfof("====================%s", filepath.Join(workDir, configPath))
+	windIne_log.LogInfof("=========path===========%s", filepath.Join(workDir, configPath))
 	viper.AddConfigPath(workDir)
 	err := viper.ReadInConfig()
 	if err != nil {

@@ -26,3 +26,8 @@ type GetAuthorityId struct {
 }
 
 type Empty struct{}
+
+type StatisticalData struct {
+	Count    int    `json:"count"`
+	Everyday string `json:"everyday"`
+}

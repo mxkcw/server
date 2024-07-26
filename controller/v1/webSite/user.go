@@ -106,7 +106,6 @@ func (u *UserApi) GroupData(c *gin.Context) {
 		response.Fail(c, "", err.Error(), 500)
 		return
 	}
-	var result []request.GroupData
-	err, result = userService.GetGroupData(param)
+	err, result := userService.GetGroupData(param)
 	response.Ok(c, result, "success")
 }

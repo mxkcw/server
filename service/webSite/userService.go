@@ -91,7 +91,7 @@ func (u *UserService) InsertRecord(params request.AddVistRecord) (error, bool) {
 	}
 }
 
-func (u *UserService) GetGroupData(params request.GetData) (error, []request.GroupData) {
+func (u *UserService) GetGroupData(params request.GetData) (error, map[string][]request.StatisticalData) {
 	var result []request.GroupData
 	if params.DataType == 1 { //day
 		rs := WindIne_orm_mysql.Instance().MysqlDB.Debug().Table("site_log").
@@ -111,5 +111,12 @@ func (u *UserService) GetGroupData(params request.GetData) (error, []request.Gro
 		}
 	}
 	fmt.Printf("rs:---%+v\n", result)
-	return nil, result
+
+	newData := make(map[string][]request.StatisticalData)
+	if result != nil {
+		for _, value := range result {
+			newData[value.UtmSource] = append(newData[value.UtmSource], request.StatisticalData{Count: value.Count, Everyday: value.Everyday})
+		}
+	}
+	return nil, newData
 }

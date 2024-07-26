@@ -1,6 +1,7 @@
 package webSite
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/mxkcw/windIneLog/windIne_log"
 	"server/middleware"
@@ -63,4 +64,28 @@ func (u *UserApi) Info(c *gin.Context) {
 	data["roles"] = claims.Nickname
 	response.Ok(c, data, "success")
 
+}
+
+// add visit record
+func (u *UserApi) AddRecord(c *gin.Context) {
+	windIne_log.LogInfof("%v", c)
+	var param request.AddVistRecord
+	var err = c.ShouldBind(&param)
+	if err != nil {
+		windIne_log.LogErrorf("%s", err.Error())
+		response.Fail(c, "", err.Error(), 500)
+		return
+	}
+	fmt.Println(param)
+	err = utils.Verify(param, utils.RecordVerify)
+	if err != nil {
+		windIne_log.LogErrorf("%s", err.Error())
+		response.Fail(c, "", err.Error(), 500)
+		return
+	}
+	var state bool
+	err, state = userService.InsertRecord(param)
+	data := make(map[string]interface{})
+	data["state"] = state
+	response.Ok(c, data, "success")
 }

@@ -22,15 +22,15 @@ func (u *UserService) Login(phone, password string) (error, string) {
 		return result.Error, ""
 	}
 	if count == 0 {
-		return errors.New("账号不存在"), ""
+		return errors.New("account does not exist"), ""
 	}
 	windIne_log.LogInfof("查询数据 %v", userInfo)
 	//帐号密码方式进行登陆
 	if password == "" {
-		return errors.New("帐号密码登录缺少参数"), ""
+		return errors.New("missing parameters for account password login"), ""
 	}
 	if userInfo.Password != utils.MD5EncryptionGo(password) {
-		return errors.New("账号或者密码错误"), ""
+		return errors.New("wrong account or password"), ""
 	}
 	//生成 token
 	token, err := middleware.GenerateToken(fmt.Sprintf("%d", userInfo.ID), userInfo.Phone, userInfo.Username, userInfo.NickName)

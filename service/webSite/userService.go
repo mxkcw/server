@@ -54,10 +54,9 @@ func (u *UserService) InsertRecord(params request.AddVistRecord) (error, bool) {
 	//先查询数据是否存在
 	var siteLog common.SiteLog
 	t := time.Now().Format("2006-01-02")
-
 	state := WindIne_orm_mysql.Instance().MysqlDB.Debug().Where(
-		"unique_id = ? and device_type=? and region=? and referer=? and utm_source=? and utm_medium=? and utm_campaign=? and everyday = ?",
-		newParams.ApiKey, newParams.DeviceType, newParams.Region, newParams.Referer, newParams.UtmSource, newParams.UtmMedium, newParams.UtmCampaign, t).Find(&siteLog)
+		"unique_id = ? and utm_source=? and everyday = ?",
+		newParams.ApiKey, newParams.UtmSource, t).Find(&siteLog)
 	if state.Error != nil && state.Error != gorm.ErrRecordNotFound {
 		return state.Error, false
 	}
@@ -90,4 +89,27 @@ func (u *UserService) InsertRecord(params request.AddVistRecord) (error, bool) {
 		}
 		return nil, true
 	}
+}
+
+func (u *UserService) GetGroupData(params request.GetData) (error, []request.GroupData) {
+	var result []request.GroupData
+	if params.DataType == 1 { //day
+		rs := WindIne_orm_mysql.Instance().MysqlDB.Debug().Table("site_log").
+			Select("SUM(count) AS count,utm_source,everyday").
+			Group("utm_source,everyday").
+			Scan(&result)
+		if rs.Error != nil && rs.Error != gorm.ErrRecordNotFound {
+			return rs.Error, nil
+		}
+	} else if params.DataType == 2 { //month
+		rs := WindIne_orm_mysql.Instance().MysqlDB.Debug().Table("site_log").
+			Select("SUM(count) AS count,utm_source,everyday").
+			Group("utm_source,MONTH(everyday)").
+			Scan(&result)
+		if rs.Error != nil && rs.Error != gorm.ErrRecordNotFound {
+			return rs.Error, nil
+		}
+	}
+	fmt.Printf("rs:---%+v\n", result)
+	return nil, result
 }

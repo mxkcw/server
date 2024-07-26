@@ -89,3 +89,24 @@ func (u *UserApi) AddRecord(c *gin.Context) {
 	data["state"] = state
 	response.Ok(c, data, "success")
 }
+
+func (u *UserApi) GroupData(c *gin.Context) {
+	windIne_log.LogInfof("%v", c)
+	var param request.GetData
+	var err = c.ShouldBind(&param)
+	if err != nil {
+		windIne_log.LogErrorf("%s", err.Error())
+		response.Fail(c, "", err.Error(), 500)
+		return
+	}
+	fmt.Println(param)
+	err = utils.Verify(param, utils.RecordVerify)
+	if err != nil {
+		windIne_log.LogErrorf("%s", err.Error())
+		response.Fail(c, "", err.Error(), 500)
+		return
+	}
+	var result []request.GroupData
+	err, result = userService.GetGroupData(param)
+	response.Ok(c, result, "success")
+}

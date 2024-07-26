@@ -21,3 +21,13 @@ type Record struct {
 	AddVistRecord
 	Everyday time.Time
 }
+
+type GetData struct {
+	DataType int `json:"type" form:"type"`
+}
+
+type GroupData struct {
+	UtmSource string `json:"utm_source"`
+	Count     int    `json:"count"`
+	Everyday  string `json:"everyday"`
+}

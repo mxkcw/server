@@ -96,7 +96,7 @@ func (u *UserService) GetGroupData(params request.GetData) (error, map[string][]
 	if params.DataType == 1 { //day
 		rs := WindIne_orm_mysql.Instance().MysqlDB.Debug().Table("site_log").
 			Select("SUM(count) AS count,utm_source,everyday").
-			Group("utm_source,everyday").
+			Group("utm_source,everyday").Where("YEAR(everyday) = ? AND MONTH(everyday) = ?", params.DataYear, params.DataMonth).
 			Scan(&result)
 		if rs.Error != nil && rs.Error != gorm.ErrRecordNotFound {
 			return rs.Error, nil

@@ -2,10 +2,7 @@ package config
 
 import (
 	"github.com/mxkcw/windIneLog"
-	"github.com/mxkcw/windIneLog/windIne_log"
 	"github.com/spf13/viper"
-	"os"
-	"path/filepath"
 )
 
 const (
@@ -30,12 +27,6 @@ const (
 	PKGModeWithManage
 	PKGModeWithMobile
 )
-
-var stringToPKGMode = map[string]PKGMode{
-	"manage":  PKGModeWithManage,
-	"webSite": PKGModeWithMobile,
-	"Unknown": PKGModeWithUnknown,
-}
 
 func (art PKGMode) String() string {
 	switch art {
@@ -101,14 +92,9 @@ type FileUpload struct {
 }
 
 func InitConfig(configName, configPath string) {
-	windIne_log.LogInfof("------------------%s", configPath)
-	workDir, _ := os.Getwd()
-	windIne_log.LogInfof("------workDir------------%s", workDir)
+	viper.AddConfigPath(configPath)
 	viper.SetConfigName(configName)
 	viper.SetConfigType("yaml")
-	viper.AddConfigPath(filepath.Join(workDir, configPath))
-	windIne_log.LogInfof("=========path===========%s", filepath.Join(workDir, configPath))
-	viper.AddConfigPath(workDir)
 	err := viper.ReadInConfig()
 	if err != nil {
 		panic(err)

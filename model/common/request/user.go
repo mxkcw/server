@@ -23,7 +23,9 @@ type Record struct {
 }
 
 type GetData struct {
-	DataType int `json:"type" form:"type"`
+	DataType  int    `json:"type" form:"type"`
+	DataYear  string `json:"year" form:"year"`
+	DataMonth string `json:"month" form:"month"`
 }
 
 type GroupData struct {

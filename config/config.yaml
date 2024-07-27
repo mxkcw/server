@@ -1,7 +1,7 @@
 system:
   domain: webSite
   version: 1.0
-  env: "dev"
+  AppEnv: "release"
   HttpPort: ":5001"
   Host: "localhost"
   UploadModel: "local"
@@ -9,11 +9,11 @@ system:
 
 
 mysql:
-  dbHost: "114.117.164.200"
-  dbPort: "3308"
+  dbHost: "database-cd-test.cswacuhfujiz.eu-west-1.rds.amazonaws.com"
+  dbPort: "3306"
   dbName: "db_wynpay"
-  userName: "root"
-  password: "1234"
+  userName: "cddev"
+  password: "k08yc5by5e63"
   charset: "utf8mb4"
 
 

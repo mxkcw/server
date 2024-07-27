@@ -1,20 +1,17 @@
 package main
 
 import (
+	"github.com/gin-gonic/gin"
 	"github.com/mxkcw/windIneLog"
 	"github.com/mxkcw/windIneLog/windIne_log"
 	"github.com/mxkcw/windIneLog/windIne_orm/WindIne_orm_mysql"
 	"github.com/mxkcw/windIneLog/windIne_orm/windIne_orm_config"
-	"path/filepath"
 	"server/config"
 	"server/initialize"
 )
 
 var (
-	runMode    = "debug"
-	configName = ""
-	configPath = ""
-	pKGMode    = "webSite"
+	pKGMode = "webSite"
 )
 
 // @title						Gin-Server Swagger API接口文档
@@ -25,28 +22,27 @@ var (
 // @name						x-token
 // @BasePath					/
 func main() {
-	if runMode == "debug" {
+	//初始化读取配置
+	config.InitConfig("config", "./config")
+	if config.Config.System.AppEnv == "debug" {
 		config.CurrentRunMode = windIne.RunModeDebug
-		configName = "config-dev"
-	} else if runMode == "test" {
+		gin.SetMode(gin.DebugMode)
+	} else if config.Config.System.AppEnv == "test" {
 		config.CurrentRunMode = windIne.RunModeTest
-		configName = "config-test"
-	} else if runMode == "release" {
-		configName = "config-prod"
+		gin.SetMode(gin.TestMode)
+	} else if config.Config.System.AppEnv == "release" {
 		config.CurrentRunMode = windIne.RunModeRelease
+		gin.SetMode(gin.ReleaseMode)
 	}
-
 	if pKGMode == "manage" {
 		config.CurrentPKGMode = config.PKGModeWithManage
 	} else if pKGMode == "webSite" {
 		config.CurrentPKGMode = config.PKGModeWithMobile
 	}
-
 	//初始化日志配置打印-采用分片处理
-	windIne.SetupWindIneBox(config.ProjectName, config.CurrentRunMode, "./logs", 9, windIne_log.WindIneLogSaveTypeDays, config.HTTPRequestTimeOut)
+	windIne.SetupWindIneBox(config.ProjectName, config.CurrentRunMode, "./logs", 5, windIne_log.WindIneLogSaveTypeDays, config.HTTPRequestTimeOut)
 	windIne_log.LogInfof("========%s", config.CurrentPKGMode.String())
-	//初始化读取配置
-	config.InitConfig(configName, filepath.Join("/config", "webSite"))
+
 	//输出日志
 	windIne_log.LogInfof("========%s", config.Config.System.Domain)
 	windIne_log.LogInfof("========%s", config.Config.System.AppEnv)
@@ -58,13 +54,12 @@ func main() {
 		config.Config.MySql.DbName,
 		config.Config.MySql.DbHost,
 		config.Config.MySql.DbPort,
-		windIne_orm_config.WindIneORMTimeZoneShangHai,
+		windIne_orm_config.WindIneORMTimeZoneUTC,
 		func(err error) {
 			windIne_log.LogInfof("%s", "sql全局配置")
 			WindIne_orm_mysql.Instance().MysqlDB.Debug().Omit("CreatedAt", "UpdatedAt", "DeletedAt")
 			windIne_log.LogInfof("%s", "开启全局路由模式")
 			initialize.Routers()
-
 		},
 	)
 

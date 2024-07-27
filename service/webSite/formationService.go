@@ -49,7 +49,6 @@ func (f *FormationService) Formation(source, medium, widgetID, campaign, pageTyp
 
 func (f *FormationService) FormationList(pageInfo request.PageInfo) (error error, formation []common.SiteFormation, total int64) {
 	windIne_log.LogInfof("接收参数： %d,%d,%s", pageInfo.Page, pageInfo.PageSize, pageInfo.Keyword)
-
 	limit := pageInfo.PageSize
 	offset := pageInfo.PageSize * (pageInfo.Page - 1)
 	var CustomerList []common.SiteFormation

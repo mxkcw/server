@@ -22,27 +22,19 @@ func GetDefaultRespBase() *ResData {
 	}
 }
 
-func GetResCodeDataError(msg string, data interface{}, isDebug bool, code int64) *ResData {
+func GetResCodeDataError(msg string, data interface{}, code int64) *ResData {
 	aErr := GetDefaultRespBase()
 	aErr.Code = code
 	aErr.Msg = msg
-	if data != nil {
-		if !isDebug {
-			aErr.Data = data
-		}
-	}
+	aErr.Data = data
 	return aErr
 }
 
-func GetResCodeDataSuccess(msg string, data interface{}, isDebug bool) *ResData {
+func GetResCodeDataSuccess(msg string, data interface{}) *ResData {
 	aErr := GetDefaultRespBase()
 	aErr.Code = SUCCESS
 	aErr.Msg = msg
-	if data != nil {
-		if !isDebug {
-			aErr.Data = data
-		}
-	}
+	aErr.Data = data
 
 	return aErr
 }

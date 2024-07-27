@@ -1,6 +1,7 @@
 package webSite
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/mileusna/useragent"
 	"github.com/mxkcw/windIneLog/windIne_log"
@@ -8,6 +9,8 @@ import (
 	"server/model/common/request"
 	"server/model/common/response"
 	"server/utils"
+	"strconv"
+	"time"
 )
 
 type UserApi struct{}
@@ -109,12 +112,20 @@ func (u *UserApi) GroupData(c *gin.Context) {
 		response.Fail(c, "", err.Error(), 500)
 		return
 	}
-	err = utils.Verify(param, utils.RecordVerify)
+	err = utils.Verify(param, utils.GetData)
 	if err != nil {
 		windIne_log.LogErrorf("%s", err.Error())
 		response.Fail(c, "", err.Error(), 500)
 		return
 	}
+	// 当前时间
+	currentTime := time.Now()
+	// 年
+	param.DataYear = strconv.Itoa(currentTime.Year())
+	currentMonth := int(currentTime.Month())
+	// 月
+	param.DataMonth = fmt.Sprintf("%02d", currentMonth)
+
 	err, result := userService.GetGroupData(param)
 	response.Ok(c, result, "success")
 }

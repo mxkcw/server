@@ -1,18 +1,18 @@
 package response
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
-	windIne "github.com/mxkcw/windIneLog"
 	"net/http"
-	"server/config"
 )
 
 func Ok(ctx *gin.Context, data interface{}, msg string) {
+	fmt.Println("data", data)
 	respModel := GetResCodeDataSuccess(
 		msg,
 		data,
-		config.CurrentRunMode == windIne.RunModeRelease,
 	)
+	fmt.Println("respModel:", respModel)
 	ctx.SecureJSON(
 		http.StatusOK,
 		respModel,
@@ -23,7 +23,6 @@ func Fail(ctx *gin.Context, data interface{}, msg string, code int64) {
 	respModel := GetResCodeDataError(
 		msg,
 		data,
-		config.CurrentRunMode == windIne.RunModeRelease,
 		code,
 	)
 	ctx.SecureJSON(

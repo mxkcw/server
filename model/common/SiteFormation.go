@@ -13,6 +13,7 @@ type SiteFormation struct {
 	GMTCreate    time.Time `json:"gmt_create" gorm:"type:datetime;comment:'gmt_create'"`
 	GMTModified  time.Time `json:"gmt_modified" gorm:"type:datetime;comment:'gmt_modified'"`
 	PageType     string    `json:"page_type" gorm:"type:varchar(255);comment:'page_type'"`
+	State        int64     `json:"state" gorm:"type:int(2);comment:'1:no send 2:send'"`
 }
 
 func (SiteFormation) TableName() string {

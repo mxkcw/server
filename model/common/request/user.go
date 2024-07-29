@@ -33,3 +33,11 @@ type GroupData struct {
 	Count     int    `json:"count"`
 	Everyday  string `json:"everyday"`
 }
+
+type DeleteParams struct {
+	Id int `json:"id" form:"id"`
+}
+
+type UpdateParams struct {
+	Id int `json:"id" form:"id"`
+}

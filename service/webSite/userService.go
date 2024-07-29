@@ -120,3 +120,25 @@ func (u *UserService) GetGroupData(params request.GetData) (error, map[string][]
 	}
 	return nil, newData
 }
+
+func (u *UserService) DeleteData(params request.DeleteParams) (error, bool) {
+	rs := WindIne_orm_mysql.Instance().MysqlDB.Debug().Table("site_formation").Where("state=1").Delete(&common.SiteFormation{ID: uint64(params.Id)})
+	if rs.Error != nil && rs.Error != gorm.ErrRecordNotFound {
+		return rs.Error, false
+	}
+	if rs.RowsAffected == 0 {
+		return nil, false
+	}
+	return nil, true
+}
+
+func (u *UserService) UpUrlState(params request.UpdateParams) (error, bool) {
+	rs := WindIne_orm_mysql.Instance().MysqlDB.Debug().Table("site_formation").Where("id=?", params.Id).Update("state", 2)
+	if rs.Error != nil && rs.Error != gorm.ErrRecordNotFound {
+		return rs.Error, false
+	}
+	if rs.RowsAffected == 0 {
+		return nil, false
+	}
+	return nil, true
+}

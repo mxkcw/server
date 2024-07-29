@@ -129,3 +129,41 @@ func (u *UserApi) GroupData(c *gin.Context) {
 	err, result := userService.GetGroupData(param)
 	response.Ok(c, result, "success")
 }
+
+func (u *UserApi) DeleteUrl(c *gin.Context) {
+	windIne_log.LogInfof("%v", c)
+	var param request.DeleteParams
+	var err = c.ShouldBind(&param)
+	if err != nil {
+		windIne_log.LogErrorf("%s", err.Error())
+		response.Fail(c, "", err.Error(), 500)
+		return
+	}
+	err = utils.Verify(param, utils.GetData)
+	if err != nil {
+		windIne_log.LogErrorf("%s", err.Error())
+		response.Fail(c, "", err.Error(), 500)
+		return
+	}
+	err, result := userService.DeleteData(param)
+	response.Ok(c, result, "success")
+}
+
+func (u *UserApi) UpdateUrlSend(c *gin.Context) {
+	windIne_log.LogInfof("%v", c)
+	var param request.UpdateParams
+	var err = c.ShouldBind(&param)
+	if err != nil {
+		windIne_log.LogErrorf("%s", err.Error())
+		response.Fail(c, "", err.Error(), 500)
+		return
+	}
+	err = utils.Verify(param, utils.GetData)
+	if err != nil {
+		windIne_log.LogErrorf("%s", err.Error())
+		response.Fail(c, "", err.Error(), 500)
+		return
+	}
+	err, result := userService.UpUrlState(param)
+	response.Ok(c, result, "success")
+}

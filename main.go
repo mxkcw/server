@@ -40,7 +40,6 @@ func main() {
 		config.CurrentPKGMode = config.PKGModeWithMobile
 	}
 	//初始化日志配置打印-采用分片处理
-	windIne.SetupWindIneBox(config.ProjectName, config.CurrentRunMode, "./logs", 5, windIne_log.WindIneLogSaveTypeDays, config.HTTPRequestTimeOut)
 	windIne_log.LogInfof("========%s", config.CurrentPKGMode.String())
 
 	//输出日志

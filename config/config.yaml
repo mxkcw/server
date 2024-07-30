@@ -5,7 +5,7 @@ system:
   HttpPort: ":5001"
   Host: "localhost"
   UploadModel: "local"
-  Jwt: "dwfyaxxccc"
+  Jwt: "cswacuhfujizdwfyaxxcccamazonawsformal"
 
 
 mysql:
@@ -16,10 +16,9 @@ mysql:
   password: "k08yc5by5e63"
   charset: "utf8mb4"
 
-
 redis:
   redisDbName: 6
-  redisHost: "114.117.164.200"
+  redisHost: "127.0.0.1"
   redisPort: 6379
   redisPassword: qwe1230.
   redisNetwork: "tcp"

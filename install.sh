@@ -9,6 +9,9 @@
 ###
 # 打包镜像名称变量
 app_name='wynpay_website_statistics';
+# 映射文件
+file='/go/src/webSite_statistics'
+dataFile='/release/wynpay_webSite_linux'
 # 打包的版本号
 app_version='latest';
 echo '----开始执行sh命令----'
@@ -27,5 +30,5 @@ fi
 echo '----根据当前目录下Dockerfile制作镜像----'
 docker build -t ${app_name}:${app_version} .;
 echo '----运行镜像文件----'
-docker run --cap-add SYS_TIME -d -p 8001:5001 --name ${app_name} -v /data/${app_name}:/data/webSite_statistics ${app_name};
+docker run --cap-add SYS_TIME -d -p 8001:5001 --name ${app_name} -v /${dataFile}:/${file} ${app_name};
 echo '----完成部署----'

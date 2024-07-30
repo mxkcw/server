@@ -15,7 +15,7 @@ var (
 )
 
 // @title						Gin-Server Swagger API接口文档
-// @version					v0.0.1
+// @version						v0.0.2
 // @description				wynpay
 // @securityDefinitions.apikey	ApiKeyAuth
 // @in							header

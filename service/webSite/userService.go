@@ -63,6 +63,7 @@ func (u *UserService) InsertRecord(params request.AddVistRecord) (error, bool) {
 
 	if state.RowsAffected > 0 {
 		siteLog.Count += 1
+		siteLog.GmtModified = time.Now()
 		upState := WindIne_orm_mysql.Instance().MysqlDB.Debug().Save(&siteLog)
 		if upState.Error != nil {
 			return upState.Error, false

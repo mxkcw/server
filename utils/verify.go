@@ -6,4 +6,5 @@ var (
 	PageInfoVerify = Rules{"Page": {NotEmpty()}, "PageSize": {NotEmpty()}}
 	RecordVerify   = Rules{"ApiKey": []string{NotEmpty()}, "UtmMedium": []string{NotEmpty()}, "UtmSource": []string{NotEmpty()}}
 	GetData        = Rules{"DataType": []string{NotEmpty()}}
+	DeleteParams   = Rules{"ID": []string{NotEmpty()}}
 )

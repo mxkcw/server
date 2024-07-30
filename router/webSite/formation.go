@@ -11,11 +11,17 @@ type Formation struct {
 
 func (u *UserRouter) InitFormationRouter(Router *gin.RouterGroup) (R gin.IRouter) {
 	formationRouter := Router.Group("formation/v1")
-	middleWareToken := formationRouter.Use(middleware.JWT()) //进行token验证
-	userApi := v1.ControllerGroupApp.WebSiteControllerGroup.FormationApi
+	formation_Api := v1.ControllerGroupApp.WebSiteControllerGroup.FormationApi
 	{
-		middleWareToken.POST("/save", userApi.SaveFormation)
-		middleWareToken.GET("/pageList", userApi.PageListFormation)
+		formationRouter.POST("/addRecord", formation_Api.AddRecord)
+	}
+	middleWareToken := formationRouter.Use(middleware.JWT()) //进行token验证
+	{
+		middleWareToken.POST("/save", formation_Api.SaveFormation)
+		middleWareToken.GET("/data", formation_Api.GroupData)
+		middleWareToken.GET("/pageList", formation_Api.PageListFormation)
+		middleWareToken.POST("/delUrl", formation_Api.DeleteUrl)
+		middleWareToken.POST("/upUrlState", formation_Api.UpdateUrlSend)
 	}
 	return formationRouter
 }

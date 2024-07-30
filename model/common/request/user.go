@@ -8,13 +8,13 @@ type UserLogin struct {
 }
 
 type AddVistRecord struct {
-	DeviceType  string `json:"device_type"`
-	Region      string `json:"region"`
-	Referer     string `json:"referer"`
-	UtmSource   string `json:"utm_source"`
-	UtmMedium   string `json:"utm_medium"`
-	UtmCampaign string `json:"utm_campaign"`
-	ApiKey      string `json:"api_key"`
+	DeviceType  string `json:"device_type" form:"device_type"`
+	Region      string `json:"region" form:"region"`
+	Referer     string `json:"referer" form:"referer"`
+	UtmSource   string `json:"utm_source" form:"utm_source"`
+	UtmMedium   string `json:"utm_medium" form:"utm_medium"`
+	UtmCampaign string `json:"utm_campaign" form:"utm_campaign"`
+	ApiKey      string `json:"api_key" json:"api_key"`
 }
 
 type Record struct {
@@ -29,9 +29,9 @@ type GetData struct {
 }
 
 type GroupData struct {
-	UtmSource string `json:"utm_source"`
-	Count     int    `json:"count"`
-	Everyday  string `json:"everyday"`
+	UtmSource string `json:"utm_source" form:"utm_source"`
+	Count     int    `json:"count" form:"count"`
+	Everyday  string `json:"everyday" form:"everyday"`
 }
 
 type DeleteParams struct {

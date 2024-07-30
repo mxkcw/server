@@ -14,16 +14,12 @@ func (u *UserRouter) InitUserRouter(Router *gin.RouterGroup) (R gin.IRouter) {
 	userApi := v1.ControllerGroupApp.WebSiteControllerGroup.UserApi
 	{
 		userRouter.POST("/login", userApi.Login)
-		userRouter.POST("/addRecord", userApi.AddRecord)
 
 	}
 	// 权限验证
 	middleWareToken := userRouter.Use(middleware.JWT()) //进行token验证
 	{
 		middleWareToken.GET("/info", userApi.Info)
-		middleWareToken.GET("/data", userApi.GroupData)
-		middleWareToken.GET("/delUrl", userApi.DeleteUrl)
-		middleWareToken.POST("/upUrlState", userApi.UpdateUrlSend)
 	}
 	return userRouter
 }

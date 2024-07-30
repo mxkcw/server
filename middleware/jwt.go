@@ -18,7 +18,7 @@ func JWT() gin.HandlerFunc {
 		if token == "" {
 			context.JSON(http.StatusOK, gin.H{
 				"code": http.StatusUnauthorized,
-				"msg":  "没有携带token",
+				"msg":  "not token",
 				"data": "",
 			})
 			context.Abort()
@@ -28,7 +28,7 @@ func JWT() gin.HandlerFunc {
 			if err != nil {
 				context.JSON(http.StatusOK, gin.H{
 					"code": http.StatusUnauthorized,
-					"msg":  "token验证失败",
+					"msg":  "token error",
 					"data": "",
 				})
 				context.Abort()
@@ -36,7 +36,7 @@ func JWT() gin.HandlerFunc {
 			} else if time.Now().UTC().Unix() > claims.StandardClaims.ExpiresAt {
 				context.JSON(http.StatusOK, gin.H{
 					"code": http.StatusUnauthorized,
-					"msg":  "token已过期",
+					"msg":  "token expiration",
 					"data": "",
 				})
 				context.Abort()
